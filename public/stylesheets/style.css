@@ -210,6 +210,7 @@ footer a:hover::after {
   border: none;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .view-button::after, .back-button::after, .new-message-button::after, .submit-button::after {
@@ -221,7 +222,7 @@ footer a:hover::after {
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
   transition: left 0.3s ease;
-  z-index: 1;
+  z-index: -1;
 }
 
 .view-button:hover::after, .back-button:hover::after, .new-message-button:hover::after, .submit-button:hover::after {
@@ -297,6 +298,23 @@ footer a:hover::after {
 .form-container h2 {
   color: var(--primary-color);
   margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.form-container h2::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.form-container:hover h2::after {
+  width: 100%;
 }
 
 .message-form {
@@ -309,11 +327,14 @@ footer a:hover::after {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
 }
 
 .form-group label {
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
 }
 
 .form-group input,
@@ -326,6 +347,7 @@ footer a:hover::after {
   font-family: inherit;
   resize: vertical;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .form-group input:hover,
@@ -341,15 +363,30 @@ footer a:hover::after {
   background-color: #2d2d2d;
 }
 
-.form-group input:focus + label,
-.form-group textarea:focus + label {
+.form-group.input-focused label {
   color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.form-group::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.form-group.input-focused::after {
+  width: 100%;
 }
 
 .form-actions {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 /* Single message view */
@@ -407,6 +444,29 @@ footer a:hover::after {
   padding: 1rem;
   border-radius: var(--border-radius);
   overflow-x: auto;
+}
+
+/* Grid layout for larger screens */
+@media (min-width: 769px) {
+  .message-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .message-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message-text {
+    flex-grow: 1;
+  }
+  
+  .view-button {
+    align-self: flex-start;
+  }
 }
 
 /* Responsive styles */
