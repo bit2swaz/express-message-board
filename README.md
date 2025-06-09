@@ -64,7 +64,7 @@ express-message-board/
 
 ## Live Demo
 
-🔗 [View Live Demo](#) _(Coming soon)_
+🔗 [View Live Demo](https://express-mini-message-board-v394.onrender.com)
 
 ## Author
 
