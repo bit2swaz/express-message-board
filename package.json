@@ -1,0 +1,33 @@
+{
+  "name": "express-message-board",
+  "version": "1.0.0",
+  "description": "A mini message board built with Express.js and EJS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bit2swaz/express-message-board.git"
+  },
+  "keywords": [
+    "express",
+    "ejs",
+    "message-board"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bit2swaz/express-message-board/issues"
+  },
+  "homepage": "https://github.com/bit2swaz/express-message-board#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<div class="single-message">
+  <div class="message-detail-card">
+    <div class="message-header">
+      <h2>Message from <%= message.user %></h2>
+      <div class="message-meta">
+        <span class="message-date">
+          Posted on: <%= message.added.toLocaleDateString() %> at <%= message.added.toLocaleTimeString() %>
+        </span>
+      </div>
+    </div>
+    
+    <div class="message-content">
+      <p><%= message.text %></p>
+    </div>
+    
+    <div class="message-actions">
+      <a href="/" class="back-button">Back to Messages</a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %> 

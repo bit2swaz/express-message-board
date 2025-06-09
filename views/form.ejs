@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<div class="form-container">
+  <h2>Create a New Message</h2>
+  
+  <form action="/new" method="POST" class="message-form">
+    <div class="form-group">
+      <label for="user">Your Name:</label>
+      <input type="text" id="user" name="user" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="text">Message:</label>
+      <textarea id="text" name="text" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="submit-button">Post Message</button>
+      <a href="/" class="cancel-button">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('partials/footer') %> 

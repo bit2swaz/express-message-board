@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<div class="message-board">
+  <h2>Recent Messages</h2>
+  
+  <div class="message-list">
+    <% if (messages.length === 0) { %>
+      <p class="no-messages">No messages yet. Be the first to post!</p>
+    <% } else { %>
+      <% messages.forEach(message => { %>
+        <div class="message-card">
+          <div class="message-header">
+            <h3><%= message.user %></h3>
+            <span class="message-date"><%= message.added.toLocaleDateString() %> <%= message.added.toLocaleTimeString() %></span>
+          </div>
+          <p class="message-text"><%= message.text %></p>
+          <a href="/message/<%= message.id %>" class="view-button">View</a>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+  
+  <a href="/new" class="new-message-button">Create New Message</a>
+</div>
+
+<%- include('partials/footer') %> 
