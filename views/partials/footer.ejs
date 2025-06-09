@@ -1,6 +1,20 @@
   </main>
   <footer>
-    <p>made with ❤ by <a href="https://github.com/bit2swaz" target="_blank">bit2swaz</a></p>
+    <p>made with <span class="heart">❤</span> by <a href="https://github.com/bit2swaz" target="_blank">bit2swaz</a></p>
   </footer>
+  <script>
+    // Heart beat animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const heart = document.querySelector('.heart');
+      if (heart) {
+        setInterval(() => {
+          heart.classList.add('pulse');
+          setTimeout(() => {
+            heart.classList.remove('pulse');
+          }, 1000);
+        }, 3000);
+      }
+    });
+  </script>
 </body>
 </html> 
