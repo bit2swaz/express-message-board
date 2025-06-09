@@ -18,7 +18,7 @@
     "message-board"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bit2swaz/express-message-board/issues"
   },
