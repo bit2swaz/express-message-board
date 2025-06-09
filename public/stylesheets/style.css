@@ -8,7 +8,10 @@
   --text-secondary: #b0b0b0;
   --error-color: #cf6679;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 6px 10px rgba(0, 0, 0, 0.4);
   --border-radius: 8px;
+  --glow-primary: 0 0 8px rgba(187, 134, 252, 0.5);
+  --glow-secondary: 0 0 8px rgba(3, 218, 198, 0.5);
 }
 
 /* Global styles */
@@ -31,11 +34,34 @@ body {
 a {
   color: var(--secondary-color);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 a:hover {
   color: var(--primary-color);
+}
+
+/* Navigation links with underline effect */
+nav a {
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
 }
 
 /* Layout */
@@ -51,16 +77,12 @@ header {
 header h1 {
   color: var(--primary-color);
   font-size: 1.8rem;
+  text-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
 }
 
 nav {
   display: flex;
   gap: 1.5rem;
-}
-
-nav a {
-  font-weight: 500;
-  padding: 0.5rem 0;
 }
 
 main {
@@ -77,11 +99,39 @@ footer {
   text-align: center;
   margin-top: auto;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
 }
 
 footer p {
   color: var(--text-secondary);
   font-size: 0.9rem;
+}
+
+footer a {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+footer a:hover {
+  transform: translateY(-2px);
+  color: var(--primary-color);
+}
+
+footer a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+footer a:hover::after {
+  transform: scaleX(1);
 }
 
 /* Message board */
@@ -102,6 +152,26 @@ footer p {
   border-radius: var(--border-radius);
   padding: 1.5rem;
   box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.6s ease-in-out;
+  border: 1px solid transparent;
+}
+
+.message-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border: 1px solid rgba(187, 134, 252, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .message-header {
@@ -128,34 +198,72 @@ footer p {
   word-break: break-word;
 }
 
-.view-button {
+/* Button styles */
+.view-button, .back-button, .new-message-button, .submit-button, .cancel-button {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-button::after, .back-button::after, .new-message-button::after, .submit-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.view-button:hover::after, .back-button:hover::after, .new-message-button:hover::after, .submit-button:hover::after {
+  left: 0;
+}
+
+.view-button, .back-button {
   background-color: var(--primary-color);
   color: #000;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  transition: background-color 0.3s ease;
 }
 
-.view-button:hover {
+.view-button:hover, .back-button:hover {
   background-color: #9d70d8;
   color: #000;
+  box-shadow: var(--glow-primary);
+  transform: scale(1.05);
 }
 
-.new-message-button {
-  align-self: flex-start;
-  padding: 0.75rem 1.5rem;
+.new-message-button, .submit-button {
   background-color: var(--secondary-color);
   color: #000;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  transition: background-color 0.3s ease;
 }
 
-.new-message-button:hover {
+.new-message-button:hover, .submit-button:hover {
   background-color: #02b8a7;
   color: #000;
+  box-shadow: var(--glow-secondary);
+  transform: scale(1.05);
+}
+
+.cancel-button {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid #444;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border-color: var(--text-color);
+  transform: scale(1.05);
 }
 
 /* Form styles */
@@ -166,6 +274,24 @@ footer p {
   box-shadow: var(--shadow);
   max-width: 600px;
   margin: 0 auto;
+  animation: slideIn 0.5s ease-out;
+  border: 1px solid rgba(187, 134, 252, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-container:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .form-container h2 {
@@ -187,6 +313,7 @@ footer p {
 
 .form-group label {
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .form-group input,
@@ -198,12 +325,25 @@ footer p {
   color: var(--text-color);
   font-family: inherit;
   resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: var(--primary-color);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  outline: 2px solid var(--primary-color);
-  border-color: transparent;
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
+  background-color: #2d2d2d;
+}
+
+.form-group input:focus + label,
+.form-group textarea:focus + label {
+  color: var(--primary-color);
 }
 
 .form-actions {
@@ -212,43 +352,11 @@ footer p {
   margin-top: 1rem;
 }
 
-.submit-button {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--secondary-color);
-  color: #000;
-  border: none;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #02b8a7;
-}
-
-.cancel-button {
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid #444;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.cancel-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-color);
-}
-
 /* Single message view */
 .single-message {
   max-width: 800px;
   margin: 0 auto;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 .message-detail-card {
@@ -256,6 +364,13 @@ footer p {
   border-radius: var(--border-radius);
   padding: 2rem;
   box-shadow: var(--shadow);
+  transition: box-shadow 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.message-detail-card:hover {
+  box-shadow: var(--shadow-hover);
+  border: 1px solid rgba(187, 134, 252, 0.2);
 }
 
 .message-meta {
@@ -272,27 +387,13 @@ footer p {
   margin-top: 2rem;
 }
 
-.back-button {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--primary-color);
-  color: #000;
-  border-radius: var(--border-radius);
-  font-weight: 500;
-  display: inline-block;
-  transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #9d70d8;
-  color: #000;
-}
-
 /* Error page */
 .error-container {
   background-color: var(--surface-color);
   border-radius: var(--border-radius);
   padding: 2rem;
   box-shadow: var(--shadow);
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 .error-container h1 {
@@ -314,6 +415,11 @@ footer p {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    padding: 1rem;
+  }
+  
+  main {
+    padding: 1.5rem 1rem;
   }
   
   .message-header {
@@ -323,9 +429,34 @@ footer p {
   
   .form-actions {
     flex-direction: column;
+    width: 100%;
   }
   
-  .cancel-button {
-    text-align: center;
+  .form-actions button,
+  .form-actions a {
+    width: 100%;
+  }
+  
+  .message-card {
+    padding: 1.2rem;
+  }
+  
+  .message-detail-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-button, .back-button, .new-message-button, .submit-button, .cancel-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .form-container {
+    padding: 1.5rem;
+  }
+  
+  .message-content {
+    font-size: 1rem;
   }
 } 
