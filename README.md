@@ -2,8 +2,6 @@
 
 > A sleek, modern message board application built with Express.js and EJS featuring a responsive dark mode UI.
 
-![Express Message Board](https://via.placeholder.com/800x400?text=Express+Message+Board)
-
 ## Features
 
 - **Clean, Modern UI** with soft dark mode theme
